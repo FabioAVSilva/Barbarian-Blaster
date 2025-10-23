@@ -61,6 +61,11 @@ mesh = SubResource("CylinderMesh_djkev")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.305, 0)
 mesh = SubResource("CylinderMesh_ttsi1")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="TurretBase/TurretTop"]
+[node name="TurretTriangleBarrelBase" type="MeshInstance3D" parent="TurretBase/TurretTop"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04, 0.4)
 mesh = SubResource("PrismMesh_r754r")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
