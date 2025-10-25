@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://edp7mwao1kjr"]
+[gd_scene load_steps=11 format=3 uid="uid://edp7mwao1kjr"]
 
 [ext_resource type="Script" uid="uid://lgprtvr4aw6r" path="res://Turret/turret.gd" id="1_5kpma"]
 [ext_resource type="PackedScene" uid="uid://drw6skywqkx5l" path="res://Turret/projectile.tscn" id="2_djkev"]
@@ -11,6 +11,9 @@ top_radius = 0.6
 bottom_radius = 0.6
 height = 0.6
 
+[sub_resource type="PrismMesh" id="PrismMesh_r754r"]
+size = Vector3(0.6, 0.45, 0.6)
+
 [sub_resource type="CylinderMesh" id="CylinderMesh_djkev"]
 top_radius = 0.08
 bottom_radius = 0.08
@@ -21,8 +24,66 @@ top_radius = 0.1
 bottom_radius = 0.1
 height = 0.05
 
-[sub_resource type="PrismMesh" id="PrismMesh_r754r"]
-size = Vector3(0.6, 0.45, 0.6)
+[sub_resource type="Animation" id="Animation_djkev"]
+resource_name = "fire"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TurretBase/TurretTop/Node3D/TurretTriangleBarrelBase:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0.08, -0.33), Vector3(0, 0.08, -0.2)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TurretBase/TurretTop/Node3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.466667),
+"transitions": PackedFloat32Array(1, 1, 0.148651),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 4.18879), Vector3(0, 0, 6.28319)]
+}
+
+[sub_resource type="Animation" id="Animation_ttsi1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TurretBase/TurretTop/Node3D/TurretTriangleBarrelBase:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.08, -0.2)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TurretBase/TurretTop/Node3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r754r"]
+_data = {
+&"RESET": SubResource("Animation_ttsi1"),
+&"fire": SubResource("Animation_djkev")
+}
 
 [node name="Turret" type="Node3D"]
 script = ExtResource("1_5kpma")
@@ -37,35 +98,47 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 mesh = SubResource("CylinderMesh_5kpma")
 skeleton = NodePath("../..")
 
-[node name="TurretBarrel" type="MeshInstance3D" parent="TurretBase/TurretTop"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.1, -0.1, 0.85)
-mesh = SubResource("CylinderMesh_djkev")
+[node name="Node3D" type="Node3D" parent="TurretBase/TurretTop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.04, 0.6)
 
-[node name="TurretBarrelRing" type="MeshInstance3D" parent="TurretBase/TurretTop/TurretBarrel"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.305, 0)
-mesh = SubResource("CylinderMesh_ttsi1")
-
-[node name="TurretBarrel2" type="MeshInstance3D" parent="TurretBase/TurretTop"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.1, -0.1, 0.85)
-mesh = SubResource("CylinderMesh_djkev")
-
-[node name="TurretBarrelRing" type="MeshInstance3D" parent="TurretBase/TurretTop/TurretBarrel2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.305, 0)
-mesh = SubResource("CylinderMesh_ttsi1")
-
-[node name="TurretBarrel3" type="MeshInstance3D" parent="TurretBase/TurretTop"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.1, 0.85)
-mesh = SubResource("CylinderMesh_djkev")
-
-[node name="TurretBarrelRing" type="MeshInstance3D" parent="TurretBase/TurretTop/TurretBarrel3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.305, 0)
-mesh = SubResource("CylinderMesh_ttsi1")
-
-[node name="TurretTriangleBarrelBase" type="MeshInstance3D" parent="TurretBase/TurretTop"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04, 0.4)
+[node name="TurretTriangleBarrelBase" type="MeshInstance3D" parent="TurretBase/TurretTop/Node3D"]
+transform = Transform3D(1, -1.74846e-07, 0, 1.74846e-07, 1, 0, 0, 0, 1, 0, 0.08, -0.2)
 mesh = SubResource("PrismMesh_r754r")
+skeleton = NodePath("../..")
+
+[node name="TurretBarrel" type="MeshInstance3D" parent="TurretBase/TurretTop/Node3D/TurretTriangleBarrelBase"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.1, -0.14, 0.45)
+mesh = SubResource("CylinderMesh_djkev")
+skeleton = NodePath("../../..")
+
+[node name="TurretBarrelRing" type="MeshInstance3D" parent="TurretBase/TurretTop/Node3D/TurretTriangleBarrelBase/TurretBarrel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.305, 0)
+mesh = SubResource("CylinderMesh_ttsi1")
+
+[node name="TurretBarrel2" type="MeshInstance3D" parent="TurretBase/TurretTop/Node3D/TurretTriangleBarrelBase"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.1, -0.14, 0.45)
+mesh = SubResource("CylinderMesh_djkev")
+skeleton = NodePath("../../..")
+
+[node name="TurretBarrelRing" type="MeshInstance3D" parent="TurretBase/TurretTop/Node3D/TurretTriangleBarrelBase/TurretBarrel2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.305, 0)
+mesh = SubResource("CylinderMesh_ttsi1")
+
+[node name="TurretBarrel3" type="MeshInstance3D" parent="TurretBase/TurretTop/Node3D/TurretTriangleBarrelBase"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.06, 0.45)
+mesh = SubResource("CylinderMesh_djkev")
+skeleton = NodePath("../../..")
+
+[node name="TurretBarrelRing" type="MeshInstance3D" parent="TurretBase/TurretTop/Node3D/TurretTriangleBarrelBase/TurretBarrel3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.305, 0)
+mesh = SubResource("CylinderMesh_ttsi1")
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_r754r")
+}
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
