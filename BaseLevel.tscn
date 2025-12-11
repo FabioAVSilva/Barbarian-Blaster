@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://stafny5k8dbo" path="res://Base/base.tscn" id="3_o2j4u"]
 [ext_resource type="Script" uid="uid://cgk7rikhngywd" path="res://enemy_path.gd" id="3_ufkdr"]
 [ext_resource type="Script" uid="uid://25dpid0jw2bk" path="res://turret_manager.gd" id="5_cwwxe"]
-[ext_resource type="PackedScene" uid="uid://edp7mwao1kjr" path="res://Turret/turret.tscn" id="6_ufkdr"]
+[ext_resource type="PackedScene" uid="uid://b025y2mlvyun" path="res://Turret/turret_cannon.tscn" id="7_now27"]
 [ext_resource type="Script" uid="uid://saiaosbrs7hv" path="res://bank.gd" id="8_tv3th"]
 [ext_resource type="PackedScene" uid="uid://dvgxc4a8124hw" path="res://DifficultyManager/difficulty_manager.tscn" id="9_xkmwr"]
 [ext_resource type="PackedScene" uid="uid://cnvymng2cmc1r" path="res://UserInterface/victory_layer.tscn" id="10_now27"]
@@ -125,12 +125,12 @@ wait_time = 2.0
 autostart = true
 
 [node name="Base" parent="." instance=ExtResource("3_o2j4u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2, -6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -6)
 max_health = 50
 
 [node name="TurretManager" type="Node3D" parent="." node_paths=PackedStringArray("enemy_path")]
 script = ExtResource("5_cwwxe")
-turret = ExtResource("6_ufkdr")
+turret = ExtResource("7_now27")
 enemy_path = NodePath("../EnemyPath")
 
 [node name="Bank" type="MarginContainer" parent="." groups=["bank"]]
