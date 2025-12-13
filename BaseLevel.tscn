@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dxg7kq1nikc3v"]
+[gd_scene load_steps=21 format=3 uid="uid://dxg7kq1nikc3v"]
 
 [ext_resource type="PackedScene" uid="uid://c1b3pqrp0rf8u" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_knq2t"]
 [ext_resource type="MeshLibrary" uid="uid://cw1t1b8ikxqja" path="res://MeshLibraries/SpaceLibrary.tres" id="1_lvb7b"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://cgk7rikhngywd" path="res://enemy_path.gd" id="3_ufkdr"]
 [ext_resource type="Script" uid="uid://25dpid0jw2bk" path="res://turret_manager.gd" id="5_cwwxe"]
 [ext_resource type="PackedScene" uid="uid://b025y2mlvyun" path="res://Turret/turret_cannon.tscn" id="7_now27"]
+[ext_resource type="FontFile" uid="uid://kx8evusvjnbi" path="res://Assets/Asap/static/Asap-Bold.ttf" id="8_clh6v"]
 [ext_resource type="Script" uid="uid://saiaosbrs7hv" path="res://bank.gd" id="8_tv3th"]
 [ext_resource type="PackedScene" uid="uid://dvgxc4a8124hw" path="res://DifficultyManager/difficulty_manager.tscn" id="9_xkmwr"]
 [ext_resource type="PackedScene" uid="uid://cnvymng2cmc1r" path="res://UserInterface/victory_layer.tscn" id="10_now27"]
@@ -37,14 +38,17 @@ point_count = 5
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_now27"]
 albedo_color = Color(0.347817, 0.347817, 0.347817, 1)
 
+[sub_resource type="Theme" id="Theme_rt5eh"]
+default_font = ExtResource("8_clh6v")
+
 [sub_resource type="LabelSettings" id="LabelSettings_epnn3"]
 font_size = 64
 outline_size = 16
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Curve" id="Curve_xkmwr"]
-_limits = [10.0, 150.0, 0.0, 1.0]
-_data = [Vector2(0, 10), 0.0, 140.0, 0, 1, Vector2(1, 150), 140.0, 0.0, 1, 0]
+_limits = [0.0, 20.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 6.0, 0, 1, Vector2(1, 7), 0.738193, 0.0, 0, 0]
 point_count = 2
 
 [node name="BaseLevel" type="Node3D"]
@@ -130,7 +134,7 @@ autostart = true
 
 [node name="Base" parent="." instance=ExtResource("3_o2j4u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -6)
-max_health = 50
+max_health = 10
 
 [node name="TurretManager" type="Node3D" parent="." node_paths=PackedStringArray("enemy_path")]
 script = ExtResource("5_cwwxe")
@@ -144,12 +148,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme = SubResource("Theme_rt5eh")
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 script = ExtResource("8_tv3th")
-starting_gold = 300
+starting_gold = 100
 
 [node name="Label" type="Label" parent="Bank"]
 layout_mode = 2
@@ -157,8 +162,10 @@ size_flags_horizontal = 0
 size_flags_vertical = 8
 text = "placeholder bank"
 label_settings = SubResource("LabelSettings_epnn3")
+uppercase = true
 
 [node name="DifficultyManager" parent="." instance=ExtResource("9_xkmwr")]
+game_length = 180.0
 enemy_health_curve = SubResource("Curve_xkmwr")
 
 [node name="VictoryLayer" parent="." instance=ExtResource("10_now27")]

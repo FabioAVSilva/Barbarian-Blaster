@@ -7,7 +7,7 @@ extends Path3D
 
 func spawn_enemy() -> void:
 	var new_enemy = enemy_sceme.instantiate()
-	new_enemy.max_health = difficulty_manager.get_enemy_health()
+	new_enemy.max_health *= difficulty_manager.get_enemy_health()
 	add_child(new_enemy)
 	timer.wait_time = difficulty_manager.get_spawn_time()
 	new_enemy.tree_exited.connect(enemy_defeated)
